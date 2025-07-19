@@ -6,11 +6,18 @@ const ulList = document.querySelectorAll('li > ul');
 
 ulList.forEach((ul) => {
   const li = ul.parentElement;
-  const textNode = li.firstChild;
-  const span = document.createElement('span');
 
-  textNode.replaceWith(span);
-  span.textContent = textNode.textContent;
+  for (const node of li.childNodes) {
+    if (node.nodeType === 3 && node.textContent.trim().length > 0) {
+      const textNode = node;
+      const span = document.createElement('span');
+
+      span.textContent = textNode.textContent;
+      textNode.replaceWith(span);
+
+      break;
+    }
+  }
 });
 
 const mainUl = document.querySelector('.tree');
